@@ -3,51 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAP YARD | QTSM</title>
+    <title>RAP YARD | QTSM STUDIO</title>
     <script src="https://tailwindcss.com"></script>
     <style>
         body { background-color: #0f0f0f !important; color: white !important; margin: 0; font-family: sans-serif; }
         .industrial-yellow { color: #FFCC00 !important; }
+        .recording-red { color: #ff0000 !important; text-shadow: 0 0 10px #ff0000; }
     </style>
 </head>
-<body class="bg-[#0f0f0f] text-white">
-<div class="flex justify-center pt-12">
-    <img src="https://vr6yxm5q6odtanat.public.blob.vercel-storage.com/Screenshot%202026-05-11%20231528.png" class="w-64 border-4 border-[#FFCC00] shadow-[10px_10px_0px_0px_#333]">
-</div>
+<body class="bg-[#0f0f0f] text-white antialiased">
+
+    <!-- Branding Header -->
+    <div class="flex justify-center pt-12">
+        <img src="https://vercel-storage.com" class="w-64 border-4 border-[#FFCC00] shadow-[10px_10px_0px_0px_#333]">
+    </div>
 
     <!-- Hero Section -->
-    <section class="min-h-[70vh] flex flex-col items-center justify-center p-8 text-center">
-        <div class="mb-12">
-            <h1 class="text-7xl md:text-9xl font-black italic uppercase leading-none">
-                RAP <span class="industrial-yellow">YARD</span>
-            </h1>
-            <div class="h-2 w-32 bg-[#FFCC00] mx-auto mt-4"></div>
-            <p class="mt-8 text-lg font-mono text-gray-400 tracking-[0.4em] uppercase">
-                Record • Upload • Share
-            </p>
-        </div>
+    <section class="flex flex-col items-center justify-center pt-12 pb-8 text-center px-4">
+        <h1 class="text-7xl md:text-9xl font-black italic uppercase leading-none">
+            RAP <span class="industrial-yellow">YARD</span>
+        </h1>
+        <p class="mt-4 text-sm font-mono text-gray-400 tracking-[0.4em] uppercase">QTSM Industrial Studio v1.0</p>
     </section>
 
-    <!-- Audio Player Section -->
-    <section class="bg-[#1a1a1a] py-20 px-8 border-t border-gray-800">
-        <div class="max-w-xl mx-auto">
-            <h2 class="text-3xl font-black uppercase mb-8 industrial-yellow">Latest Track</h2>
+    <!-- Studio / Player Section -->
+    <section class="max-w-xl mx-auto px-6 mb-20">
+        <div class="bg-black p-8 border-2 border-white shadow-[10px_10px_0px_0px_#FFCC00]">
             
-            <div class="bg-black p-6 border-2 border-white shadow-[10px_10px_0px_0px_#FFCC00]">
-                <p class="font-mono text-xs text-gray-500 mb-2">FILE_NAME: YARD_DEMO_V1.MP3</p>
-                <h3 class="text-xl font-bold mb-4 italic">DEMO_FLOW_QTSM</h3>
+            <!-- Current Beat Player -->
+            <h2 class="text-xs font-mono text-gray-500 uppercase mb-4 tracking-widest">Selected_Beat: yard-beat.mp3</h2>
+            <audio id="beat-player" controls class="w-full h-12 invert brightness-150 rounded-none mb-8">
+                <source src="https://vercel-storage.com" type="audio/mpeg">
+            </audio>
+
+            <!-- Recording Console -->
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <div id="recording-status" class="text-xs font-mono text-gray-600 uppercase mb-4 tracking-tighter">Studio_Status: Ready</div>
                 
-                <<audio controls class="w-full h-10 invert brightness-150 rounded-none">
-    <source src="https://vr6yxm5q6odtanat.public.blob.vercel-storage.com/yard-beat.ogg" type="audio/ogg">
-    Your browser does not support the audio element.
-</audio>
-!-- This is the actual player -->
-               
+                <div class="flex flex-col gap-4">
+                    <button id="record-btn" class="w-full bg-[#FFCC00] text-black font-black py-4 uppercase tracking-widest hover:bg-white transition-all">
+                        Record Verse
+                    </button>
+                    <button id="stop-btn" class="hidden w-full bg-red-600 text-white font-black py-4 uppercase tracking-widest animate-pulse">
+                        Stop & Save
+                    </button>
+                </div>
+
+                <!-- Preview of Recorded Verse -->
+                <div id="preview-section" class="hidden mt-8 pt-8 border-t border-gray-800">
+                    <p class="text-xs font-mono text-[#FFCC00] mb-4 uppercase">Verse_Recorded_Successful</p>
+                    <audio id="audio-preview" controls class="w-full h-10 invert brightness-150"></audio>
+                    <a id="download-link" class="block mt-4 text-xs font-mono underline uppercase text-gray-500 hover:text-white">Download_Vocal_Stem</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Analytics Script -->
+    <!-- Recording Logic Script -->
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        const recordBtn = document.getElementById('record-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const status = document.getElementById('recording-status');
+        const previewSection = document.getElementById('preview-section');
+        const audioPreview = document.getElementById('audio-preview');
+        const downloadLink = document.getElementById('download-link');
+
+        recordBtn.onclick = async () => {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            
+            mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                audioPreview.src = audioUrl;
+                downloadLink.href = audioUrl;
+                downloadLink.download = "yard-verse.wav";
+                previewSection.classList.remove('hidden');
+            };
+
+            audioChunks = [];
+            mediaRecorder.start();
+            recordBtn.classList.add('hidden');
+            stopBtn.classList.remove('hidden');
+            status.innerText = "Studio_Status: RECORDING";
+            status.classList.add('recording-red');
+        };
+
+        stopBtn.onclick = () => {
+            mediaRecorder.stop();
+            stopBtn.classList.add('hidden');
+            recordBtn.classList.remove('hidden');
+            status.innerText = "Studio_Status: Ready";
+            status.classList.remove('recording-red');
+        };
+    </script>
+
+    <!-- Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
 
 </body>
