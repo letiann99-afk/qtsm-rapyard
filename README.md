@@ -1,213 +1,40 @@
-# qtsm-rapyard✅ RAP YARD — FULL TRANSFER PACKAGE
-This is the complete, ready‑to‑import blueprint.
-
-🧩 1. Project Summary
-Rap Yard is a mobile app for recording, uploading, sharing, and listening to rap tracks.
-Core features include:
-
-User accounts
-
-Audio recording & upload
-
-Track feed
-
-Likes & listens
-
-Profiles
-
-Analytics events
-
-Clean industrial QTSM branding
-
-If you want a deeper summary:
-Project summary
-
-🗄️ 2. Database Schema (Collections)
-Users
-id
-
-email
-
-passwordHash
-
-handle
-
-avatarUrl
-
-createdAt
-
-Tracks
-id
-
-userId
-
-title
-
-description
-
-audioUrl
-
-createdAt
-
-Likes
-id
-
-userId
-
-trackId
-
-createdAt
-
-Listens
-id
-
-userId
-
-trackId
-
-createdAt
-
-Events
-id
-
-userId
-
-type
-
-metadata
-
-createdAt
-
-If you want this in SQL or JSON format:
-Backend schema
-
-🔌 3. API Specification
-Auth
-POST /auth/register
-
-POST /auth/login
-
-Tracks
-GET /tracks
-
-GET /tracks/:id
-
-POST /tracks
-
-POST /tracks/:id/like
-
-POST /tracks/:id/listen
-
-Upload
-POST /tracks/upload
-
-Analytics
-POST /events
-
-📱 4. Frontend Structure (Adalo‑Ready)
-Screens
-Login
-
-Register
-
-Feed
-
-Create Track
-
-Profile
-
-Settings (optional)
-
-Components
-Button
-
-Card
-
-Typography
-
-Icon set (mic, bolt, wrench, fence)
-
-Audio player
-
-Audio recorder
-
-Navigation
-Auth Stack → Main Tabs
-
-Tabs: Feed | Create | Profile
-
-If you want the full screen‑by‑screen build:
-Frontend structure
-
-🎨 5. Branding & Logo
-Your QTSM industrial logo is already generated.
-Brand identity:
-
-Industrial metallic tones
-
-Matte black
-
-Orange/yellow energy accents
-
-Strong geometric shapes
-
-Mic + city + waveform motif
-
-If you want a full brand kit:
-Brand assets
-
-🔧 6. Adalo Integration Guide
-Step 1 — Create Collections
-Create collections matching the schema above:
-
-Users
-
-Tracks
-
-Likes
-
-Listens
-
-Events
-
-Step 2 — Add Custom Actions
-For each API endpoint, create a Custom Action in Adalo:
-
-Login
-
-Register
-
-Upload audio
-
-Create track
-
-Like track
-
-Log listen
-
-Log events
-
-Step 3 — Build Screens
-Connect Login/Register to Auth actions
-
-Feed screen → List of Tracks collection
-
-Create screen → File picker + Custom Action upload
-
-Profile screen → Filter Tracks by Logged‑In User
-
-Step 4 — Add Audio Components
-Use Adalo’s audio player
-
-Use file picker for uploads
-
-Step 5 — Add Analytics
-Trigger events on:
-
-Login
-
-Track upload
-
-Play
-
-Like
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAP YARD | QTSM</title>
+    <!-- New reliable Tailwind Link -->
+    <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-[#0f0f0f] text-white font-sans antialiased">
+
+    <main class="min-h-screen flex flex-col items-center justify-center p-6">
+        <!-- Industrial Header -->
+        <div class="text-center space-y-2 border-l-4 border-[#FFCC00] pl-6 py-4 mb-12">
+            <h1 class="text-7xl md:text-9xl font-black italic tracking-tighter uppercase leading-none">
+                RAP <span class="text-[#FFCC00]">YARD</span>
+            </h1>
+            <p class="text-lg md:text-xl font-mono text-gray-500 tracking-[0.3em] uppercase">
+                Record • Upload • Share • Listen
+            </p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col md:flex-row gap-4 w-full max-w-md">
+            <button class="flex-1 bg-[#FFCC00] text-black font-bold py-4 px-8 uppercase tracking-widest hover:bg-white transition-colors border-2 border-[#FFCC00]">
+                Launch App
+            </button>
+            <button class="flex-1 border-2 border-white text-white font-bold py-4 px-8 uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                View Tracks
+            </button>
+        </div>
+
+        <!-- Branding Footer -->
+        <footer class="mt-20 text-gray-700 font-black text-sm tracking-[0.5em] uppercase">
+            QTSM_MODULAR_V1
+        </footer>
+    </main>
+
+</body>
+</html>
