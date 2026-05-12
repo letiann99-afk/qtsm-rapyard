@@ -4,40 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAP YARD | QTSM</title>
-    <!-- This line is critical for the "Industrial" styles to work -->
     <script src="https://tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f0f0f !important; color: white !important; margin: 0; font-family: sans-serif; }
+        .industrial-yellow { color: #FFCC00 !important; }
+    </style>
 </head>
-<body class="bg-[#0f0f0f] text-white antialiased">
+<body class="bg-[#0f0f0f] text-white">
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex flex-col items-center justify-center p-8 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1a1a1a] to-[#0f0f0f]">
-        
-        <!-- Industrial Branding Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-7xl md:text-9xl font-black italic tracking-tighter uppercase leading-none text-white">
-                RAP <span class="text-[#FFCC00] drop-shadow-[0_0_15px_rgba(255,204,0,0.3)]">YARD</span>
+    <section class="min-h-[70vh] flex flex-col items-center justify-center p-8 text-center">
+        <div class="mb-12">
+            <h1 class="text-7xl md:text-9xl font-black italic uppercase leading-none">
+                RAP <span class="industrial-yellow">YARD</span>
             </h1>
-            <div class="h-1 w-32 bg-[#FFCC00] mx-auto mt-4"></div>
-            <p class="mt-6 text-lg md:text-xl font-mono text-gray-400 tracking-[0.4em] uppercase">
+            <div class="h-2 w-32 bg-[#FFCC00] mx-auto mt-4"></div>
+            <p class="mt-8 text-lg font-mono text-gray-400 tracking-[0.4em] uppercase">
                 Record • Upload • Share
             </p>
         </div>
+    </section>
 
-        <!-- Call to Action Buttons -->
-        <div class="flex flex-col sm:flex-row gap-6 w-full max-w-lg">
-            <button class="flex-1 bg-[#FFCC00] text-black font-black py-5 px-8 uppercase tracking-widest hover:bg-white hover:scale-105 transition-all shadow-xl">
-                Start Recording
-            </button>
-            <button class="flex-1 border-2 border-white text-white font-black py-5 px-8 uppercase tracking-widest hover:bg-white hover:text-black transition-all">
-                Explore Feed
-            </button>
-        </div>
-
-        <!-- QTSM Modular Tag -->
-        <div class="mt-24 opacity-20 font-black text-xs tracking-[1em] uppercase border-t border-gray-800 pt-4">
-            QTSM_INDUSTRIAL_SYSTEM_V.01
+    <!-- Audio Player Section -->
+    <section class="bg-[#1a1a1a] py-20 px-8 border-t border-gray-800">
+        <div class="max-w-xl mx-auto">
+            <h2 class="text-3xl font-black uppercase mb-8 industrial-yellow">Latest Track</h2>
+            
+            <div class="bg-black p-6 border-2 border-white shadow-[10px_10px_0px_0px_#FFCC00]">
+                <p class="font-mono text-xs text-gray-500 mb-2">FILE_NAME: YARD_DEMO_V1.MP3</p>
+                <h3 class="text-xl font-bold mb-4 italic">DEMO_FLOW_QTSM</h3>
+                
+                <!-- This is the actual player -->
+                <audio controls class="w-full h-10 invert brightness-150 rounded-none">
+                    <source src="https://soundhelix.com" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </div>
     </section>
+
+    <!-- Analytics Script -->
+    <script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 </html>
